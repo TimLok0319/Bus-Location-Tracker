@@ -56,7 +56,6 @@ void loop() {
       previousUploadTime = millis(); // Reset the timer
     } else {
       Serial.println("No valid GPS fix yet. Waiting...");
-      // We don't reset the timer here, so it will try again soon
     }
   }
 }
@@ -115,5 +114,6 @@ void uploadData(){
     Serial.println("Error on sending POST: " + String(httpResponseCode));
   }
 }
+
 
 
