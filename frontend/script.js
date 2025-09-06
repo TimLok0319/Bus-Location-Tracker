@@ -1,92 +1,98 @@
 let map;
 let bus01;
+let directionsService;
+let directionsRenderer;
+let busStops;
 
-async function initMap() {
-  const { Map } = await google.maps.importLibrary("maps");
+window.initMap = async function () {
+  document.addEventListener("DOMContentLoaded", async () => {
+    const { Map } = await google.maps.importLibrary("maps");
 
-  map = new Map(document.getElementById("map"), {
-    center: {
-      lat: 4.326907324458727, lng: 101.13633757458516
-    },
-    zoom: 20,
-  });
-
-
-  bus01 = new google.maps.Marker({
-    position: { lat: 4.32655, lng: 101.13636 },
-    map: map,
-    title: "Bus#01",
-    icon: {
-      url: "https://maps.google.com/mapfiles/ms/icons/bus.png",
-      scaledSize: new google.maps.Size(40, 40)
-    }
-  })
+    map = new Map(document.getElementById("map"), {
+      center: {
+        lat: 4.326907324458727, lng: 101.13633757458516
+      },
+      zoom: 15,
+    });
 
 
-
-  const busStops = [
-    { id: "standford", name: "StandFord Bus Stop", position: { lat: 4.326512, lng: 101.134936 } },
-    { id: "westlake", name: "West Lake Bus Stop", position: { lat: 4.32916, lng: 101.13652 } }
-  ];
-
-  const nextStop = new google.maps.Marker({
-    position: busStops[0].position,
-    map: map,
-    title: busStops[0].name,
-  })
-
-  document.getElementById("nextStopName").innerText = nextStop.getTitle();
-
-  const directionsService = new google.maps.DirectionsService();
-  const directionsRenderer = new google.maps.DirectionsRenderer({
-    map: map,
-    suppressMarkers: true,
-    polylineOptions: {
-      strokeColor: "red",
-      strokeWeight: 5
-    }
-  });
-
-  directionsService.route(
-    {
-      origin: { lat: 4.32665, lng: 101.136336 },   // start point
-      destination: { lat: 4.326512, lng: 101.134946 }, // end point
-      waypoints: [
-        { location: { lat: 4.32672, lng: 101.13575 } }, // stops along the way
-        { location: { lat: 4.32675, lng: 101.13468 } }
-      ],
-      travelMode: google.maps.TravelMode.DRIVING
-    },
-    (result, status) => {
-      if (status === "OK") {
-        directionsRenderer.setDirections(result); // draw route
-        const leg = result.routes[0].legs[0]; // first leg of the route
-        const etaText = leg.duration.text;    // e.g. "3 mins"
-        const distanceText = leg.distance.text; // e.g. "0.9 km"
-
-        document.getElementById("etaBox").innerText =
-          `${etaText}`;
-
-      } else {
-        console.error("Directions failed: " + status);
+    bus01 = new google.maps.Marker({
+      position: { lat: 4.32655, lng: 101.13636 },
+      map: map,
+      title: "Bus#01",
+      icon: {
+        url: "https://maps.google.com/mapfiles/ms/icons/bus.png",
+        scaledSize: new google.maps.Size(40, 40)
       }
-    }
-  );
+    })
+
+    busStops = [
+      { id: "standford", name: "StandFord Bus Stop", position: { lat: 4.326512, lng: 101.134936 } },
+      { id: "westlake", name: "West Lake Bus Stop", position: { lat: 4.32916, lng: 101.13652 } }
+    ];
+
+    const nextStop = new google.maps.Marker({
+      position: busStops[0].position,
+      map: map,
+      title: busStops[0].name,
+    })
+
+    document.getElementById("nextStopName").innerText = nextStop.getTitle();
+
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer({
+      map: map,
+      suppressMarkers: true,
+      polylineOptions: {
+        strokeColor: "red",
+        strokeWeight: 5
+      }
+    });
+
+    // Start the update loop here to prevent race conditions
+    setInterval(updateBus, 3000);
+    // Trigger the first update immediately to draw the initial route
+    updateBus();
+  });
 }
 
 async function updateBus() {
   try {
     const response = await fetch("http://localhost:3000/bus01");
     const data = await response.json();
+    const newBusPosition = { lat: data.lat, lng: data.lng };
 
-    bus01.setPosition({ lat: data.lat, lng: data.lng });
+    // Update bus marker position
+    bus01.setPosition(newBusPosition);
 
-    console.log("Bus updated:", data);
+    // Recalculate and redraw the route
+    directionsService.route(
+      {
+        origin: newBusPosition,
+        destination: busStops[0].position,
+        waypoints: [
+          { location: { lat: 4.326928, lng: 101.134971 } }
+        ],
+        travelMode: google.maps.TravelMode.DRIVING
+      },
+      (result, status) => {
+        if (status === "OK") {
+          directionsRenderer.setDirections(result); // draw route
+          const leg = result.routes[0].legs[0];
+          document.getElementById("etaBox").innerText = leg.duration.text;
+        } else {
+          console.error("Directions failed: " + status);
+        }
+      }
+    );
   } catch (err) {
     console.error("Error fetching bus data:", err);
   }
+
+  const pos = bus01.getPosition(); // returns a LatLng object
+  console.log("Marker moved to:", pos.lat(), pos.lng());
 }
 
-initMap();
 
-setInterval(updateBus, 5000);
+
+//json-server --watch dummydb.json
