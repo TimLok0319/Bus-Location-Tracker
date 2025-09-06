@@ -61,3 +61,24 @@ Web Dashboard to Database (Data Retrieval)
 ~The code retrieves the latitude and longitude fields to display the bus's location on the map.
 
 ------------------------------------------------WQ Database End-----------------------------------------------------
+Front End (Web Dashboard)
+A simple frontend prototype that uses the Google Maps JavaScript API to simulate live bus tracking, ETA calculation, and routing between bus stops.
+
+📌 Features
+-Displays a bus marker that updates position every 3 seconds.
+-Bus stops are marked on the map.
+-The next stop name is shown in a card.
+-The ETA to the next stop is calculated using Google Maps Directions API.
+-Routes can include waypoints for more realistic paths.
+
+🗺️ How It Works
+*index.html
+Loads the map container and a card for bus info.
+Connects to script.js and Google Maps API.
+
+*script.js
+Initializes the map with a bus marker and bus stop markers.
+Calls updateBus() every 3 seconds.
+Fetches the latest bus position (dummy JSON endpoint for now).
+Updates the bus marker, redraws the route, and updates ETA in the card.
+<img width="437" height="757" alt="image" src="https://github.com/user-attachments/assets/c1ddb2ae-4587-4935-9454-d5ea445ec7d9" />
