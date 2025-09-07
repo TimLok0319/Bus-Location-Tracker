@@ -67,6 +67,7 @@ Web Dashboard to Database (Data Retrieval)
 ------------------------------------------------Front End-----------------------------------------------------
 **Web Dashboard**
 A simple frontend prototype that uses the Google Maps JavaScript API to simulate live bus tracking, ETA calculation, and routing between bus stops.
+<img width="437" height="757" alt="image" src="https://github.com/user-attachments/assets/c1ddb2ae-4587-4935-9454-d5ea445ec7d9" />
 
 📌 Features
 -Displays a bus marker that updates position every 3 seconds.
@@ -85,4 +86,5 @@ Initializes the map with a bus marker and bus stop markers.
 Calls updateBus() every 3 seconds.
 Fetches the latest bus position (dummy JSON endpoint for now).
 Updates the bus marker, redraws the route, and updates ETA in the card.
-<img width="437" height="757" alt="image" src="https://github.com/user-attachments/assets/c1ddb2ae-4587-4935-9454-d5ea445ec7d9" />
+
+
