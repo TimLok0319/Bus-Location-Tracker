@@ -27,8 +27,9 @@ Hardware, FrontEnd, Database and Backend.
 API Documentation for Live Bus Tracker
 
 Database: Firebase Realtime Database
-Database URL: [https://bus-location-tracker-62f5e-default-rtdb.asia-southeast1.firebasedatabase.app](https://bus-location-tracker-62f5e-default-rtdb.asia-southeast1.firebasedatabase.app/)
-
+Database URL:[ [https://bus-location-tracker-62f5e-default-rtdb.asia-southeast1.firebasedatabase.app](https://bus-location-tracker-62f5e-default-rtdb.asia-southeast1.firebasedatabase.app/)
+](https://bus-location-tracker-62f5e-default-rtdb.asia-southeast1.firebasedatabase.app/.json
+)
 ---
 
 JSON Data Structure
