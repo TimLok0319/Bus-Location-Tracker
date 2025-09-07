@@ -65,8 +65,11 @@ Web Dashboard to Database (Data Retrieval)
 ~The code retrieves the latitude and longitude fields to display the bus's location on the map.
 
 ------------------------------------------------Front End-----------------------------------------------------
+
 **Web Dashboard**
 A simple frontend prototype that uses the Google Maps JavaScript API to simulate live bus tracking, ETA calculation, and routing between bus stops.
+
+
 <img width="437" height="757" alt="image" src="https://github.com/user-attachments/assets/c1ddb2ae-4587-4935-9454-d5ea445ec7d9" />
 
 📌 Features
