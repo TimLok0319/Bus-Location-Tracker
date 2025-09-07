@@ -1,4 +1,4 @@
-Campus Bus GPS Tracker
+**Campus Bus GPS Tracker**
 
 A smart tracking system that provides real-time bus location visibility for students and staff via a web dashboard, using ESP32, GPS module, and IoT integration.
 
@@ -10,15 +10,19 @@ Students and staff often wait without knowing the exact location of campus buses
 
 This project solves the problem by providing:
 
-Real-time bus location tracking using ESP32 and GPS.
+-Real-time bus location tracking using ESP32 and GPS.
 
-Cloud-based data storage (API/Firebase) for accessibility.
+-Cloud-based data storage (API/Firebase) for accessibility.
 
-A web dashboard to display the current bus position on a map.
+-A web dashboard to display the current bus position on a map.
 
-Future features such as ETA predictions, notifications, and AI-based optimizations.
+-Future features such as ETA predictions, notifications, and AI-based optimizations.
 
-------------------------------------------------WQ Database Start-----------------------------------------------------
+*Task Division
+We had divided our project into four main component:
+Hardware, FrontEnd, Database and Backend.
+
+------------------------------------------------Database-----------------------------------------------------
 
 API Documentation for Live Bus Tracker
 
@@ -60,8 +64,8 @@ Web Dashboard to Database (Data Retrieval)
 ~It listens for real-time updates on the buses/bus_01 database path.
 ~The code retrieves the latitude and longitude fields to display the bus's location on the map.
 
-------------------------------------------------WQ Database End-----------------------------------------------------
-Front End (Web Dashboard)
+------------------------------------------------Front End-----------------------------------------------------
+**Web Dashboard**
 A simple frontend prototype that uses the Google Maps JavaScript API to simulate live bus tracking, ETA calculation, and routing between bus stops.
 
 📌 Features
