@@ -47,12 +47,18 @@ ESP32 to Database (Data Transmission)
 ~Method: PATCH or PUT
 ~Endpoint: https://bus-location-tracker-62f5e-default-rtdb.asia-southeast1.firebasedatabase.app/buses/bus_01.json
 ~Request Body (JSON): The firmware should send a JSON payload that matches the structure above. 
+
  For example:
  {
+ 
   "latitude": 5.3364,
+  
   "longitude": 100.3067,
+  
   "date": "05/09/2025",
+  
   "time": "15:30:00"
+  
 }
 
 ---
